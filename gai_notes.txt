@@ -1,0 +1,2 @@
+pip install -r requirements.txt
+(venv_cp311) $:~/dev/myGPT2/gpt-2$ python download_model.py 124M
