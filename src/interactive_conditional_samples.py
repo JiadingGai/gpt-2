@@ -69,6 +69,17 @@ def interact_model(
         ckpt = tf.compat.v1.train.latest_checkpoint(os.path.join(models_dir, model_name))
         saver.restore(sess, ckpt)
 
+        GAI_SAVE_WEIGHT = True
+        if GAI_SAVE_WEIGHT == True:
+          weight_id = 0
+          for v in tf.compat.v1.trainable_variables():
+            weights_npy = sess.run(v)
+            np.save("gpt2_w" + str(weight_id), weights_npy)
+            weight_id += 1
+            print(" --> ", v.name, ", shape = ", weights_npy.shape)
+            if (v.name == "model/h1/ln_2/g:0"):
+                import pdb; pdb.set_trace()
+
         while True:
             raw_text = input("Model prompt >>> ")
             while not raw_text:
